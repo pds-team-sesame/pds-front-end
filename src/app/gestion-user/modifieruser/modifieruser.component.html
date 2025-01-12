@@ -1,0 +1,116 @@
+<div class="d-flex flex-column-reverse flex-lg-row">
+  <!-- Sidebar -->
+  <nav class="sidebar bg-orange p-3" style="width: 100%; max-width: 250px; height: 100vh; background-color: #FF8C00; box-shadow: 2px 0 5px rgba(0,0,0,0.1);">
+    <div class="d-flex align-items-center mb-4">
+      <img src="assets/images/logo.PNG" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%;">
+      <h4 class="text-white ms-2">Admin Panel</h4>
+    </div>
+
+    <!-- Navigation -->
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gereruser">
+          <span class="me-2">🧑</span>Gérer les utilisateurs
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/admin/reviews">
+          <span class="me-2">📄</span>Gérer les avis
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/admin/announcements">
+          <span class="me-2">📢</span>Gérer les annonces
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/admin/orders">
+          <span class="me-2">🛒</span>Gérer les commandes
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/login">
+          <span class="me-2">⚙️</span>Deconnexion
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Contenu principal -->
+  <div class="content p-4 flex-grow-1" style="background-color: #FFF5E1;">
+    <div class="container">
+      <h2 class="mb-4">Modifier les utilisateurs</h2>
+      <div class="card-body">
+        <form (ngSubmit)="onUpdate()">
+          <!-- Champ Username -->
+          <div class="form-group mb-3">
+            <label for="username" class="form-label" style="color: #FF4500;">Nom</label>
+            <input
+              type="text"
+              id="username"
+              class="form-control"
+              placeholder="Entrez votre nom"
+              [(ngModel)]="username"
+              name="username"
+              required
+            />
+          </div>
+
+          <!-- Email -->
+          <div class="form-group mb-3">
+            <label for="email" class="form-label" style="color: #FF4500;">Email</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="Entrez votre email"
+              [(ngModel)]="email"
+              name="email"
+              required
+            />
+          </div>
+
+          <!-- Champ Mot de Passe -->
+          <div class="form-group mb-4">
+            <label for="password" class="form-label" style="color: #FF4500;">Mot de passe</label>
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              placeholder="Entrez votre mot de passe"
+              [(ngModel)]="password"
+              name="password"
+              required
+            />
+          </div>
+
+          <!-- Role -->
+          <div class="form-group mb-4">
+            <label for="role" class="form-label" style="color: #FF4500;">Rôle</label>
+            <select
+              id="role"
+              class="form-control"
+              [(ngModel)]="role"
+              name="role"
+              required
+            >
+              <option value="" disabled selected>Sélectionnez un rôle</option>
+              <option value="admin">Admin</option>
+              <option value="gerant">Gérant</option>
+              <option value="client">Client</option>
+              <option value="livreur">Livreur</option>
+            </select>
+          </div>
+
+          <!-- Bouton S'inscrire -->
+          <button
+            type="submit"
+            class="btn w-100 text-white"
+            style="background-color: #FF4500; font-size: 1.2rem; border-radius: 10px;">
+            Enregistrer
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

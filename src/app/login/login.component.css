@@ -1,0 +1,10 @@
+/* Ajout d'une ombre douce autour de la carte */
+.card {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Effet de survol sur le bouton */
+button:hover {
+  background-color: #f5eeed;
+  transition: 0.3s ease-in-out;
+}
