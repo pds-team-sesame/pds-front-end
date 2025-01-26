@@ -22,7 +22,8 @@ export class LoginComponent {
         if (response.user.role === 'ADMIN') {
           //alert('Bienvenue, Administrateur!');
           this.router.navigate(['/interfaceadmin']); // Redirige vers l'interface admin
-        } else {
+        }
+        else {
           //alert('echoue');
           this.router.navigate(['/login']); // Redirige vers l'interface utilisateur
         }
@@ -30,7 +31,7 @@ export class LoginComponent {
       (error) => {
         console.error('Erreur API:', error);
         alert('Nom d’utilisateur ou mot de passe incorrect.');
-        
+
       }
     );
   }

@@ -10,6 +10,8 @@ import { InterfaceAdminComponent } from './interface-admin/interface-admin.compo
 import { GestionUserComponent } from './gestion-user/gestion-user.component';
 import { ModifieruserComponent } from './gestion-user/modifieruser/modifieruser.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GestionRestaurantComponent } from './gestion-restaurant/gestion-restaurant.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     InterfaceAdminComponent,
     GestionUserComponent,
     ModifieruserComponent,
+    GestionRestaurantComponent,
 
 
   ],
