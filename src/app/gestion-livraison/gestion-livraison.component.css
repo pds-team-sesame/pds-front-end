@@ -1,0 +1,46 @@
+/* Style pour le tableau */
+.table-orange {
+  background-color: #FFA726;
+  color: white;
+}
+
+.table tbody tr:hover {
+  background-color: #FFE0B2;
+}
+
+.table td,
+.table th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Style des boutons d'action */
+.btn-warning {
+  background-color: #FFC107;
+  border: none;
+  color: white;
+}
+
+.btn-warning:hover {
+  background-color: #FFA000;
+}
+
+.btn-danger {
+  background-color: #D32F2F;
+  border: none;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #B71C1C;
+}
+
+/* Style de la barre latérale */
+.sidebar h4 {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.sidebar img {
+  margin-right: 10px;
+}

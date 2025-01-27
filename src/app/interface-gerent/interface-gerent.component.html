@@ -1,0 +1,63 @@
+<div class="d-flex flex-column-reverse flex-lg-row">
+  <!-- Sidebar -->
+  <nav class="sidebar bg-orange p-3" style="width: 100%; max-width: 250px; height: 100vh; background-color: #FF8C00; box-shadow: 2px 0 5px rgba(0,0,0,0.1);">
+    <!-- Logo -->
+    <div class="d-flex align-items-center mb-4">
+      <img src="assets/images/logo.PNG" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%;">
+      <h4 class="text-white ms-2">Gérant Panel</h4>
+    </div>
+
+    <!-- Navigation -->
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gerermenu">
+          <span class="me-2">🍽️</span>Gérer les menus
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gerereservation">
+          <span class="me-2">📅</span>Gérer les reservations
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gerertable">
+          <span class="me-2">🪑</span>Gérer les tables
+        </a>
+      </li>
+
+
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gerercommande">
+          <span class="me-2">🛒</span>Gérer les commandes
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gererlivraison">
+          <span class="me-2">🚚</span>Gérer les livraisons
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gererpaiement">
+          <span class="me-2">💳</span>Gérer les paiements
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gereravis">
+          <span class="me-2">💬</span>Gérer les avis
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/login">
+          <span class="me-2">⚙️</span>Deconnexion
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Contenu principal -->
+  <div class="content p-4 flex-grow-1" style="background-color: #FFF5E1;">
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

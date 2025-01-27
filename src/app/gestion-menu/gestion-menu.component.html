@@ -1,31 +1,49 @@
 <div class="d-flex flex-column-reverse flex-lg-row">
   <!-- Sidebar -->
   <nav class="sidebar bg-orange p-3" style="width: 100%; max-width: 250px; height: 100vh; background-color: #FF8C00; box-shadow: 2px 0 5px rgba(0,0,0,0.1);">
+    <!-- Logo -->
     <div class="d-flex align-items-center mb-4">
       <img src="assets/images/logo.PNG" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%;">
-      <h4 class="text-white ms-2">Admin Panel</h4>
+      <h4 class="text-white ms-2">Gérant Panel</h4>
     </div>
 
     <!-- Navigation -->
     <ul class="nav flex-column">
       <li class="nav-item mb-2">
-        <a class="nav-link text-white d-flex align-items-center" routerLink="/gereruser">
-          <span class="me-2">🧑</span>Gérer les utilisateurs
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gerermenu">
+          <span class="me-2">🍽️</span>Gérer les menus
         </a>
       </li>
       <li class="nav-item mb-2">
-        <a class="nav-link text-white d-flex align-items-center" routerLink="/gereresto">
-          <span class="me-2">🍽️</span>Gérer les restaurants
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gerereservation">
+          <span class="me-2">📅</span>Gérer les reservations
         </a>
       </li>
       <li class="nav-item mb-2">
-        <a class="nav-link text-white d-flex align-items-center" routerLink="/reviews">
-          <span class="me-2">📄</span>Gérer les avis
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gerertable">
+          <span class="me-2">🪑</span>Gérer les tables
         </a>
       </li>
+
+
       <li class="nav-item mb-2">
-        <a class="nav-link text-white d-flex align-items-center" routerLink="/orders">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gerercommande">
           <span class="me-2">🛒</span>Gérer les commandes
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gererlivraison">
+          <span class="me-2">🚚</span>Gérer les livraisons
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gererpaiement">
+          <span class="me-2">💳</span>Gérer les paiements
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gereravis">
+          <span class="me-2">💬</span>Gérer les avis
         </a>
       </li>
       <li class="nav-item">
@@ -36,10 +54,11 @@
     </ul>
   </nav>
 
+
   <!-- Contenu principal -->
   <div class="content p-4 flex-grow-1" style="background-color: #FFF5E1;">
     <div class="container">
-      <h2 class="mb-4">Liste des restaurants et cafées</h2>
+      <h2 class="mb-4">Liste des menus</h2>
       <button class="btn  btn-primary mb-3" (click)="openAddPopup()">
         <i class="fas fa-pencil-alt"></i> Ajouter
       </button>
@@ -47,24 +66,24 @@
         <thead class="table-orange">
           <tr>
             <th>Nom</th>
-            <th>Adresse</th>
-            <th>Téléphone</th>
+            <th>Prix</th>
             <th>Description</th>
+            <th>Restaurant</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let resto of restos">
-            <td>{{ resto.restaurant_name }}</td>
-            <td>{{ resto.address }}</td>
-            <td>{{ resto.phone_number }}</td>
-            <td>{{ resto.description }}</td>
+          <tr *ngFor="let menu of menus">
+            <td>{{ menu.name }}</td>
+            <td>{{ menu.price }}</td>
+            <td>{{ menu.description_plat }}</td>
+            <td>{{ menu.restaurant_name }}</td>
             <td>
 
-              <button class="btn btn-sm btn-warning me-2" (click)="openEditPopup(resto)">
+              <button class="btn btn-sm btn-warning me-2" (click)="openEditPopup(menu)">
                 <i class="fas fa-pencil-alt"></i> Modifier
               </button>
-              <button class="btn btn-sm btn-danger" (click)="confirmDelete(resto.id)">
+              <button class="btn btn-sm btn-danger" (click)="confirmDelete(menu.id)">
                 <i class="fas fa-trash"></i> Supprimer
               </button>
             </td>
@@ -83,11 +102,11 @@
         <h5 class="modal-title text-white" id="confirmModalLabel">Confirmation</h5>
       </div>
       <div class="modal-body text-white">
-        <p>Êtes-vous sûr de vouloir supprimer cet restaurant ?</p>
+        <p>Êtes-vous sûr de vouloir supprimer ce Menu ?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closePopup()">Non</button>
-        <button type="button" class="btn btn-warning" (click)="deleteResto()">Oui</button>
+        <button type="button" class="btn btn-warning" (click)="deletemenu()">Oui</button>
       </div>
     </div>
   </div>
@@ -98,28 +117,28 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="background-color: #FF8C00;">
       <div class="modal-header">
-        <h5 class="modal-title text-white" id="addEditModalLabel">{{ isEditing ? 'Modifier un restaurant' : 'Ajouter un restaurant' }}</h5>
+        <h5 class="modal-title text-white" id="addEditModalLabel">{{ isEditing ? 'Modifier un menu' : 'Ajouter un restaurant' }}</h5>
       </div>
       <div class="modal-body text-white">
         <form (ngSubmit)="onSubmit()">
           <div class="mb-3">
-            <label for="restaurantName" class="form-label">Nom</label>
-            <input type="text" id="restaurantName" class="form-control" [(ngModel)]="restaurantForm.restaurant_name" name="restaurant_name" required>
+            <label for="tName" class="form-label">Nom</label>
+            <input type="text" id="Name" class="form-control" [(ngModel)]="menuForm.name" name="name" required>
           </div>
           <div class="mb-3">
-            <label for="address" class="form-label">Adresse</label>
-            <input type="text" id="address" class="form-control" [(ngModel)]="restaurantForm.address" name="address" required>
+            <label for="price" class="form-label">Prix</label>
+            <input type="text" id="price" class="form-control" [(ngModel)]="menuForm.price" name="price" required>
           </div>
           <div class="mb-3">
-            <label for="phoneNumber" class="form-label">Téléphone</label>
-            <input type="text" id="phoneNumber" class="form-control" [(ngModel)]="restaurantForm.phone_number" name="phone_number" required>
+            <label for="restaurant_id" class="form-label">ID restaurant</label>
+            <input type="text" id="restaurant_id" class="form-control" [(ngModel)]="menuForm.restaurant_id" name="restaurant_id" required>
           </div>
           <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea id="description" class="form-control" [(ngModel)]="restaurantForm.description" name="description" required></textarea>
+            <textarea id="description" class="form-control" [(ngModel)]="menuForm.description_plat" name="description" required></textarea>
           </div>
           <div class="mb-3">
-            <label for="image" class="form-label">Image</label>
+            <label for="image" class="form-label">Photo</label>
             <input type="file" id="image" class="form-control" (change)="onImageChange($event)">
           </div>
 

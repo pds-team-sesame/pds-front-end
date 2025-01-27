@@ -23,6 +23,14 @@ export class LoginComponent {
           //alert('Bienvenue, Administrateur!');
           this.router.navigate(['/interfaceadmin']); // Redirige vers l'interface admin
         }
+        if (response.user.role === 'GERANT') {
+          //alert('Bienvenue, Administrateur!')
+          this.router.navigate(['/interfacegerent']); // Redirige vers l'interface admin
+        }
+        if (response.user.role === 'LIVREUR') {
+
+          this.router.navigate(['/interfacelivreur']); // Redirige vers l'interface admin
+        }
         else {
           //alert('echoue');
           this.router.navigate(['/login']); // Redirige vers l'interface utilisateur

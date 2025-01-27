@@ -1,0 +1,118 @@
+<div class="d-flex flex-column-reverse flex-lg-row">
+  <!-- Sidebar -->
+  <nav class="sidebar bg-orange p-3" style="width: 100%; max-width: 250px; height: 100vh; background-color: #FF8C00; box-shadow: 2px 0 5px rgba(0,0,0,0.1);">
+    <!-- Logo -->
+    <div class="d-flex align-items-center mb-4">
+      <img src="assets/images/logo.PNG" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%;">
+      <h4 class="text-white ms-2">Livreur Panel</h4>
+    </div>
+
+    <!-- Navigation -->
+    <ul class="nav flex-column">
+
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/livraison-livreur">
+          <span class="me-2">🚚</span>Gérer les livraisons
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/paiement-livreur">
+          <span class="me-2">💳</span>Gérer les paiements
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/login">
+          <span class="me-2">⚙️</span>Deconnexion
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <!-- Main Content -->
+  <div class="content p-4 flex-grow-1" style="background-color: #FFF5E1;">
+    <div class="container">
+      <h2 class="mb-4">Liste des livraisons</h2>
+      <button class="btn btn-primary mb-3" (click)="openAddPopup()">Ajouter livraison</button>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Commande ID</th>
+            <th>Livreur ID</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let livraison of livraisons">
+            <td>{{ livraison.id }}</td>
+            <td>{{ livraison.date }}</td>
+            <td>{{ livraison.status }}</td>
+            <td>{{ livraison.commande_id }}</td>
+            <td>{{ livraison.livreur_id }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm me-2" (click)="openEditPopup(livraison)">Modifier</button>
+              <button class="btn btn-danger btn-sm" (click)="confirmDelete(livraison.id)">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Popup -->
+<div *ngIf="showAddEditPopup" class="modal fade show" tabindex="-1" style="display: block;" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color: #FF8C00;">
+      <div class="modal-header">
+        <h5 class="modal-title text-white">{{ isEditing ? 'Modifier livraison' : 'Ajout livraison' }}</h5>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" id="date" class="form-control" [(ngModel)]="livraisonForm.date" name="date" required>
+          </div>
+          <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <input type="text" id="status" class="form-control" [(ngModel)]="livraisonForm.status" name="status" required>
+          </div>
+          <div class="mb-3">
+            <label for="commande_id" class="form-label">Commande ID</label>
+            <input type="number" id="commande_id" class="form-control" [(ngModel)]="livraisonForm.commande_id" name="commande_id" required>
+          </div>
+          <div class="mb-3">
+            <label for="livreur_id" class="form-label">Livreur ID</label>
+            <input type="number" id="livreur_id" class="form-control" [(ngModel)]="livraisonForm.livreur_id" name="livreur_id" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeAddEditPopup()">Annuler</button>
+            <button type="submit" class="btn btn-warning">{{ isEditing ? 'Modifier' : 'Ajouter' }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Popup -->
+<div *ngIf="showConfirmationPopup" class="modal fade show" tabindex="-1" style="display: block;" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color: #FF8C00;">
+      <div class="modal-header">
+        <h5 class="modal-title text-white">Confirmer la suppression </h5>
+      </div>
+      <div class="modal-body text-white">
+        Vous etes sure de supprimer la livraison?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeConfirmationPopup()">Non</button>
+        <button type="button" class="btn btn-danger" (click)="deleteLivraison()">Oui</button>
+      </div>
+    </div>
+  </div>
+</div>

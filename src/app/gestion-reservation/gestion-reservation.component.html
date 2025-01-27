@@ -1,0 +1,145 @@
+<!-- gestion-reservation.component.html -->
+<div class="d-flex flex-column-reverse flex-lg-row">
+  <nav class="sidebar bg-orange p-3" style="width: 100%; max-width: 250px; height: 100vh; background-color: #FF8C00; box-shadow: 2px 0 5px rgba(0,0,0,0.1);">
+    <div class="d-flex align-items-center mb-4">
+      <img src="assets/images/logo.PNG" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%;">
+      <h4 class="text-white ms-2">Gérant Panel</h4>
+    </div>
+
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gerermenu">
+          <span class="me-2">🍽️</span>Gérer les menus
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gerereservation">
+          <span class="me-2">📅</span>Gérer les réservations
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gerertable">
+          <span class="me-2">🪑</span>Gérer les tables
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gerercommande">
+          <span class="me-2">🛒</span>Gérer les commandes
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gererlivraison">
+          <span class="me-2">🚚</span>Gérer les livraisons
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gererpaiement">
+          <span class="me-2">💳</span>Gérer les paiements
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/gereravis">
+          <span class="me-2">💬</span>Gérer les avis
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white d-flex align-items-center" routerLink="/login">
+          <span class="me-2">⚙️</span>Déconnexion
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="content p-4 flex-grow-1" style="background-color: #FFF5E1;">
+    <div class="container">
+      <h2 class="mb-4">Liste des réservations</h2>
+      <button class="btn  btn-primary mb-3" (click)="openAddPopup()">
+        Ajouter une réservation
+      </button>
+      <table class="table table-striped table-bordered">
+        <thead class="table-orange">
+          <tr>
+            <th>Date</th>
+            <th>Nombre de personnes</th>
+            <th>ID Client</th>
+            <th>ID Restaurant</th>
+            <th>ID Table</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let res of reservations">
+            <td>{{ res.date }}</td>
+            <td>{{ res.num_guests }}</td>
+            <td>{{ res.client_id }}</td>
+            <td>{{ res.restaurant_id }}</td>
+            <td>{{ res.table_id }}</td>
+            <td>
+              <button class="btn btn-sm btn-warning me-2" (click)="openEditPopup(res)">
+                Modifier
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="confirmDelete(res.id)">
+                Supprimer
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showConfirmationPopup" class="modal fade show" style="display: block;" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmation</h5>
+      </div>
+      <div class="modal-body">
+        Êtes-vous sûr de vouloir supprimer cette réservation ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">Non</button>
+        <button type="button" class="btn btn-danger" (click)="deleteReservation()">Oui</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showAddEditPopup" class="modal fade show" style="display: block;" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color: #FF8C00;">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ isEditing ? 'Modifier la réservation' : 'Ajouter une réservation' }}</h5>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" id="date" class="form-control" [(ngModel)]="resForm.date" name="date" required>
+          </div>
+          <div class="mb-3">
+            <label for="num_guests" class="form-label">Nombre de personnes</label>
+            <input type="number" id="num_guests" class="form-control" [(ngModel)]="resForm.num_guests" name="num_guests" required>
+          </div>
+          <div class="mb-3">
+            <label for="client_id" class="form-label">ID Client</label>
+            <input type="text" id="client_id" class="form-control" [(ngModel)]="resForm.client_id" name="client_id" required>
+          </div>
+          <div class="mb-3">
+            <label for="restaurant_id" class="form-label">ID Restaurant</label>
+            <input type="text" id="restaurant_id" class="form-control" [(ngModel)]="resForm.restaurant_id" name="restaurant_id" required>
+          </div>
+          <div class="mb-3">
+            <label for="table_id" class="form-label">ID Table</label>
+            <input type="text" id="table_id" class="form-control" [(ngModel)]="resForm.table_id" name="table_id" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeAddEditPopup()">Annuler</button>
+            <button type="submit" class="btn btn-warning">{{ isEditing ? 'Modifier' : 'Ajouter' }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
